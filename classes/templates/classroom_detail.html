@@ -1,16 +1,38 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="card text-center">
-  <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
-    Classroom Details
-  </div>
-  <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{classroom.name}} {{classroom.subject}}</h5>
-    <p class="card-text" style="color: 000034;">{{classroom.year}}</p>
-    <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
-    <a href="{% url 'classroom-delete' classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
-  </div>
+    <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+        Classroom Details
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" style="color: 000034;">{{classroom.name}} {{classroom.subject}}</h5>
+        <p class="card-text" style="color: 000034;">{{classroom.year}}</p>
+        <p class="card-text" style="color: 000034;">Taught by: {{classroom.teacher}}</p>
+        <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update Class</a>
+        <a href="{% url 'classroom-delete' classroom.id %}" class="btn btn-danger">Delete Class</a>
+        <a href="{% url 'add-student' classroom.id %}" class="btn" style="background-color: #FFA500; color: white;">Add Student</a>
+    </div>
 </div>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Exam Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for student in students %}
+            <td>{{student.name}}</td>
+            <td>{{student.date_of_birth}}</td>
+            <td>{{student.gender}}</td>
+            <td>{{student.exam_grade}}</td>
+            <td><a href="{% url 'student_update' student.id classroom.id %}">Update</a></td>
+            <td>Delete</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock content %}
