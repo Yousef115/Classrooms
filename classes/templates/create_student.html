@@ -4,7 +4,7 @@
 	Add a new student
 {% endblock title %}
 {% block content %}
-	<form action="{% url 'add-student' classroom.id %}" method="POST">
+	<form action="{% url 'student-add' classroom.id %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
 		<input type="submit" value="Create" class="btn" style="background-color: #e3f2fd; color: black;">

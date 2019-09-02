@@ -59,7 +59,7 @@ def classroom_list(request):
 
 def classroom_detail(request, classroom_id):
 	classroom_obj = Classroom.objects.get(id=classroom_id)
-	student_obj = Student.objects.filter(classroom = classroom_obj).order_by('-name','-exam_grade')
+	student_obj = Student.objects.filter(classroom = classroom_obj).order_by('name','-exam_grade')
 	context = {
 		"classroom": classroom_obj,
 		"students": student_obj,
@@ -128,12 +128,12 @@ def student_create(request, classroom_id):
 	}
 	return render(request, 'create_student.html', context)
 
-def student_delete(request, student_id, classroom_id):
+def student_delete(request, classroom_id, student_id):
 	Student.objects.get(id=student_id).delete()
 	messages.success(request, "Successfully Deleted!")
 	return redirect('classroom-detail', classroom_id )
 
-def student_update(request, student_id, classroom_id):
+def student_update(request, classroom_id, student_id):
 	student = Student.objects.get(id=student_id)
 	form = AddStudentForm(instance=student)
 	if request.method == "POST":
@@ -146,5 +146,6 @@ def student_update(request, student_id, classroom_id):
 	context = {
 	"form": form,
 	"student": student,
+	"classroom": Classroom.objects.get(id=classroom_id)
 	}
 	return render(request, 'update_student.html', context)

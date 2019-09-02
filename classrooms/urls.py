@@ -18,7 +18,9 @@ urlpatterns = [
 	path('signout/', views.signout, name='signout'),
 	path('signin/', views.signin, name='signin'),
 
-	path('add/<int:classroom_id>', views.student_create, name='add-student'),
+	path('add/<int:classroom_id>', views.student_create, name='student-add'),
+	path('update/<int:classroom_id>/<int:student_id>/', views.student_update, name='student-update'),
+	path('delete/<int:classroom_id>/<int:student_id>/', views.student_delete, name='student-delete'),
 
 	
 
